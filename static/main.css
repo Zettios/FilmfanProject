@@ -1,0 +1,7 @@
+body {
+  background-color: black;
+}
+
+.remove-bottom-margin {
+  margin-bottom: 0px;
+}
