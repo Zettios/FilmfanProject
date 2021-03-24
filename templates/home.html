@@ -20,22 +20,21 @@
                 <div class="col">
                 </div>
                 <div class="col-8 pt-4 pb-4 film-item-container">
-                     
-                        {% for i in range(0, len) %} 
-                            {% if i % 2 == 0 %}
-                                <div class="film-item">
-                                    <a href="{{ url_for('film', id=Films[i]) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
-                                    <small>({{ Films[i].jaar }})</small>
-                                    <p class="remove-bottom-margin"><small>Regisseur:  {{ Films[i].regisseur }}</small></p>
-                                </div>
-                            {% else %}
-                                <div class="film-item-alt">
-                                    <a href="{{ url_for('film', id=Films[i]) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
-                                    <small>({{ Films[i].jaar }})</small>
-                                    <p class="remove-bottom-margin"><small>Regisseur: {{ Films[i].regisseur }}</small></p>
-                                </div>
-                            {% endif %}
-                        {% endfor %} 
+                    {% for i in range(0, len) %} 
+                        {% if i % 2 == 0 %}
+                            <div class="film-item">
+                                <a href="{{ url_for('film', film=Films[i].film_id) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
+                                <small>({{ Films[i].jaar }})</small>
+                                <p class="remove-bottom-margin"><small>Regisseur:  {{ Films[i].regisseur }}</small></p>
+                            </div>
+                        {% else %}
+                            <div class="film-item-alt">
+                                <a href="{{ url_for('film', film=Films[i].film_id) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
+                                <small>({{ Films[i].jaar }})</small>
+                                <p class="remove-bottom-margin"><small>Regisseur: {{ Films[i].regisseur }}</small></p>
+                            </div>
+                        {% endif %}
+                    {% endfor %} 
                 </div>
                 <div class="col">
                 </div>

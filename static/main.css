@@ -48,6 +48,21 @@ body {
   height: 20% !important;
 }
 
+.account-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
+.account-row {
+  padding-left: 10px;
+}
+
+.video-size {
+  width: 100%;
+  height: auto;
+}
+
 .my-form {
   min-width: 500px;
   position: absolute;

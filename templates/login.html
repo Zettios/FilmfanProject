@@ -16,17 +16,21 @@
             {% include "base.html" %}
         </div>
         <div class="container-fluid">
-            <form class="bg-light remove-bottom-margin p-4 rounded my-form">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                </div>
-                <div class="form-group mt-2">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-primary mt-3 w-100">Login</button>
-            </form>
+            <div class="bg-light p-4 rounded my-form">
+                <form class="remove-bottom-margin" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.gebruikersnaam.label }}
+                        {{ form.gebruikersnaam(class_="form-control") }}
+                    </div>
+                    <div class="form-group mt-2">
+                        {{ form.wachtwoord.label }}
+                        {{ form.wachtwoord(class_="form-control") }}
+                    </div>
+                    {{ form.login(class_="btn btn-primary mt-3 w-100") }}
+                    {{ form.registreer(class_="btn btn-primary mt-3 w-100") }}
+                </form>
+            </div>
         </div>
     </body>
 </html>
