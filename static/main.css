@@ -2,10 +2,6 @@ body {
   background-color: #C0C0C0;
 }
 
-.film-item-container{
-  background-color: white;
-}
-
 .film-item {
   color: black;
   background-color: #C0C0C0;
@@ -34,18 +30,6 @@ body {
 
 .remove-bottom-margin {
   margin-bottom: 0px;
-}
-
-.h-10 {
-  height: 10% !important;
-}
-
-.h-15 {
-  height: 15% !important;
-}
-
-.h-20 {
-  height: 20% !important;
 }
 
 .account-container {
