@@ -26,7 +26,7 @@ def film():
         print(commentform.commentaar.data)
         commentform.commentaar.data = ''
         print("OK")
-        return redirect(url_for('films.film', film_id=current_film.id))
+        return redirect(url_for('films_blueprint.film', film_id=current_film.id))
     else: 
         if len(commentform.errors.items()) >= 1:
             flash("Het bericht moet tussen 5 en 200 woorden zijn.")

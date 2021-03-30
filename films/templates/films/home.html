@@ -4,13 +4,13 @@
         {% for i in range(0, len) %} 
             {% if i % 2 == 0 %}
                 <div class="film-item">
-                    <a href="{{ url_for('films.film', film_id=Films[i].id) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
+                    <a href="{{ url_for('films_blueprint.film', film_id=Films[i].id) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
                     <small>({{ Films[i].jaar }})</small>
                     <p class="remove-bottom-margin"><small>Regisseur:  {{ Films[i].regisseur_id }}</small></p>
                 </div>
             {% else %}
                 <div class="film-item-alt">
-                    <a href="{{ url_for('films.film', film_id=Films[i].id) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
+                    <a href="{{ url_for('films_blueprint.film', film_id=Films[i].id) }}" class="remove-bottom-margin no-decoration-style"><b> {{ Films[i].titel }} </b></a> 
                     <small>({{ Films[i].jaar }})</small>
                     <p class="remove-bottom-margin"><small>Regisseur: {{ Films[i].regisseur_id }}</small></p>
                 </div>

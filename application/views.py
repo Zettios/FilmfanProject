@@ -1,10 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from . import app
 
 @app.route('/')
 def index():
     print("Route - application: index - app")
-    return redirect(url_for('application/films.index'), 308)
+    return redirect(url_for('films.index'), 308)
 
 @app.route('/contact')
 def contact():

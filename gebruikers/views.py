@@ -16,13 +16,13 @@ def login():
             # Wanneer de login knop wordt in gedrukt, dan wordt gecontroleerd of de gebruiker bestaat.
             # Zo ja: Login
             # Zo nee: Geef error
-            return redirect(url_for('films.index'))
+            return redirect(url_for('films_blueprint.index'))
 
         elif form.registreer.data and form.validate_on_submit():
             # Wanneer de registreer knop wordt in gedrukt, 
             # dan moeten beide velden zijn ingevuld om de gegevens op te slaan 
             # van de nieuwe gebruiker
-            return redirect(url_for('gebruikers.account'))
+            return redirect(url_for('gebruikers_blueprint.account'))
 
     return render_template('gebruikers/login.html', form=form)
 
