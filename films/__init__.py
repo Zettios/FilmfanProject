@@ -1,7 +1,7 @@
 from flask import Blueprint
 
-films = Blueprint('films', __name__, 
-    url_prefix='/films',
-    template_folder='templates')
+films_blueprint = Blueprint('films_blueprint', __name__, 
+    template_folder='templates',
+    static_folder='static')
 
 from .views import *

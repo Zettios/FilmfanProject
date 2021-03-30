@@ -3,10 +3,10 @@ from . import app
 
 @app.route('/')
 def index():
-    print("Route: index - app")
+    print("Route - application: index - app")
     return redirect(url_for('application/films.index'), 308)
 
 @app.route('/contact')
 def contact():
-    print("Route: contact")
+    print("Route - application: contact")
     return render_template('application/contact.html')

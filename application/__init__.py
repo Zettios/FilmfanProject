@@ -13,10 +13,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 Migrate(app,db)
 
-from films import films
-app.register_blueprint(films)
+from films import films_blueprint
+app.register_blueprint(films_blueprint)
 
-from gebruikers import gebruikers
-app.register_blueprint(gebruikers)
+from gebruikers import gebruikers_blueprint
+app.register_blueprint(gebruikers_blueprint)
 
 from .views import *

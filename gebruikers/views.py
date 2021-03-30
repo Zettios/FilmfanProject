@@ -2,11 +2,11 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 from application import db
 from .forms import *
 from .models import *
-from . import gebruikers
+from . import gebruikers_blueprint
 
-@gebruikers.route('/login', methods=['GET', 'POST'])
+@gebruikers_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    print("Route: login")
+    print("Route - gebruiker: login")
     form = LoginForm()
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -26,13 +26,13 @@ def login():
 
     return render_template('gebruikers/login.html', form=form)
 
-@gebruikers.route('/account')
+@gebruikers_blueprint.route('/account')
 def account():
-    print("Route: account")
+    print("Route - gebruiker: account")
     return render_template('gebruikers/account.html')
 
-@gebruikers.route('/verwijder_account', methods=['GET', 'POST'])
+@gebruikers_blueprint.route('/verwijder_account', methods=['GET', 'POST'])
 def verwijder_account():
-    print("Route: verwijder_account")
+    print("Route - gebruiker: verwijder_account")
     return render_template('gebruikers/verwijder_account.html')
 

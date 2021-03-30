@@ -2,18 +2,18 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 from application import db
 from .forms import *
 from .models import Film
-from . import films
+from . import films_blueprint
 
-@films.route('/', methods=['GET', 'POST'])
+@films_blueprint.route('/', methods=['GET', 'POST'])
 def index():
-    print("Route: index")
+    print("Route - films: index")
     films = Film.query.all()
     print(*films, sep='\n')
     return render_template('films/home.html', len = len(films), Films = films)
 
-@films.route('/film', methods=['GET', 'POST'])
+@films_blueprint.route('/film', methods=['GET', 'POST'])
 def film():
-    print("Route: film")
+    print("Route - films: film")
 
     commentform = CommentForm()
     
