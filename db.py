@@ -1,57 +1,12 @@
-import sqlite3
+from application import db
+from films.models import Film
 
-db = sqlite3.connect("filmfandb.sqlite")
+db.create_all()
 
-def sql_table(db):
+film1 = Film("foo1", 1991, "bar1", "https://www.youtube.com/watch?v=ZrdQSAX2kyw&ab_channel=HBOMax")
+film2 = Film("foo2", 2055, "bar2", "")
+film3 = Film("foo3", 2001, "bar3", "")
+film4 = Film("foo4", 1890, "bar4", "")
 
-    db.execute("CREATE TABLE IF NOT EXISTS Individu( \
-                        id integer PRIMARY KEY, \
-                        voornaam text, \
-                        achternaam text, \
-                        positierolID integer)")
-
-    db.execute("CREATE TABLE IF NOT EXISTS Positierol( \
-                        id integer PRIMARY KEY, \
-                        rolnaam text)")
-
-    db.execute("CREATE TABLE IF NOT EXISTS Film( \
-                        id integer PRIMARY KEY, \
-                        titel text, \
-                        individuID integer, \
-                        jaar integer, \
-                        trailer text)")
-
-    db.execute("INSERT INTO film VALUES (1, 'foo1', 5, 1991, 'https://www.youtube.com/watch?v=ZrdQSAX2kyw&ab_channel=HBOMax')")
-    db.execute("INSERT INTO film VALUES (2, 'foo2', 1, 1991, '')")
-    db.execute("INSERT INTO film VALUES (3, 'foo3', 90, 1991, '')")
-    db.execute("INSERT INTO film VALUES (4, 'foo4', 3, 1991, '')")
-
-    db.execute("CREATE TABLE IF NOT EXISTS Rol( \
-                        id integer PRIMARY KEY, \
-                        individuID integer, \
-                        filmID integer, \
-                        vertolkenaam text)")
-
-    db.execute("CREATE TABLE IF NOT EXISTS Gebruiker( \
-                        id integer PRIMARY KEY, \
-                        gebruikernaam text, \
-                        wachtwoord text)")
-
-    db.execute("CREATE TABLE IF NOT EXISTS Citaat( \
-                        id integer PRIMARY KEY, \
-                        citaat text, \
-                        filmID integer)")
-
-    db.execute("CREATE TABLE IF NOT EXISTS Incorrectie( \
-                        id integer PRIMARY KEY, \
-                        incorrectietekst text, \
-                        filmID integer)")
-
-    db.commit()
-
-sql_table(db)
-
-cursor = db.cursor()
-cursor.execute("SELECT * FROM film")
-for row in cursor:
-    print(row)
+db.session.add_all([film1, film2, film3, film4])
+db.session.commit()

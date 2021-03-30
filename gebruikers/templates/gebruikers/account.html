@@ -1,4 +1,4 @@
-{% extends  "base.html" %}
+{% extends "application/base.html" %}
 {% block content %}
     <div class="bg-light p-4 col-5 rounded my-form bg-light">
         <div class="row text-center"><h1>Account gegevens</h1></div>
@@ -7,6 +7,6 @@
         <div class="row account-row">Wachtwoord: </div>
         <button type="button" class="btn btn-secondary">Verander wachtwoord</button>
         <hr>
-        <a href="{{ url_for('verwijder_account') }}" class="btn btn-danger">Verwijder account</a>
+        <a href="{{ url_for('gebruikers.verwijder_account') }}" class="btn btn-danger">Verwijder account</a>
     </div>
 {% endblock %}
