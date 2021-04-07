@@ -1,4 +1,4 @@
-{% extends "application/base.html" %}
+{% extends  "application/base.html" %}
 {% block content %}
     <div class="bg-light p-4 col-4 rounded my-form">
         <form class="remove-bottom-margin" method="POST">
@@ -12,8 +12,7 @@
                 {{ form.wachtwoord.label }}
                 {{ form.wachtwoord(class_="form-control") }}
             </div>
-            {{ form.login(class_="btn btn-primary mt-3 w-100") }}
-            <a href="{{ url_for('gebruikers_blueprint.registreer_gebruiker') }}" class="btn btn-primary mt-3 w-100">Registreer</a>
+            {{ form.registreer(class_="btn btn-primary mt-3 w-100") }}
         </form>
     </div>
 {% endblock %}

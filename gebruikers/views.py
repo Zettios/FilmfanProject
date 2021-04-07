@@ -11,20 +11,19 @@ def login():
 
     if request.method == 'POST' and form.validate_on_submit():
         print(form.login.data)
-        print(form.registreer.data)
-        if form.login.data and form.validate_on_submit():
+        if form.login.data:
             # Wanneer de login knop wordt in gedrukt, dan wordt gecontroleerd of de gebruiker bestaat.
             # Zo ja: Login
             # Zo nee: Geef error
             return redirect(url_for('films_blueprint.index'))
 
-        elif form.registreer.data and form.validate_on_submit():
-            # Wanneer de registreer knop wordt in gedrukt, 
-            # dan moeten beide velden zijn ingevuld om de gegevens op te slaan 
-            # van de nieuwe gebruiker
-            return redirect(url_for('gebruikers_blueprint.account'))
-
     return render_template('gebruikers/login.html', form=form)
+
+@gebruikers_blueprint.route('/registreer_gebruiker', methods=['GET', 'POST'])
+def registreer_gebruiker():
+    print("Route - gebruiker: registreer_gebruiker")
+    form = RegistreerForm()
+    return render_template('gebruikers/registreer_gebruiker.html', form=form)
 
 @gebruikers_blueprint.route('/account')
 def account():
