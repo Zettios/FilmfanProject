@@ -3,8 +3,9 @@
     <div class="bg-light p-4 col-5 rounded my-form bg-light">
         <div class="row text-center"><h1>Account gegevens</h1></div>
         <hr>
-        <div class="row account-row">Gebruikersnaam: </div>
-        <div class="row account-row">Wachtwoord: </div>
+        <div class="row account-row">E-mail: {{ email }}</div>
+        <div class="row account-row">Gebruikersnaam: {{ gebruikersnaam }}</div>
+        <div class="row account-row">Wachtwoord:  {{ wachtwoord }}</div>
         <button type="button" class="btn btn-secondary">Verander wachtwoord</button>
         <hr>
         <a href="{{ url_for('gebruikers_blueprint.verwijder_account') }}" class="btn btn-danger">Verwijder account</a>

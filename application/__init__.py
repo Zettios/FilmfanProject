@@ -2,6 +2,8 @@ import os
 from flask import Flask, Blueprint
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
 
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
@@ -12,6 +14,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 Migrate(app,db)
+
+bcrypt = Bcrypt(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 from films import films_blueprint
 app.register_blueprint(films_blueprint)
