@@ -1,15 +1,16 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
 from application import db
 from .forms import *
-from .models import Film
+from .models import *
 from . import films_blueprint
 
 @films_blueprint.route('/', methods=['GET', 'POST'])
 def index():
     print("Route - films: index")
     films = Film.query.all()
+    regisseurs = Regisseur.query.all()
     print(*films, sep='\n')
-    return render_template('films/home.html', len = len(films), Films = films)
+    return render_template('films/home.html', len = len(films), Films = films, Regisseurs = regisseurs)
 
 @films_blueprint.route('/film', methods=['GET', 'POST'])
 def film():
