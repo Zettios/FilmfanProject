@@ -20,11 +20,11 @@ class Gebruiker(db.Model, UserMixin):
         self.wachtwoord = bcrypt.generate_password_hash(wachtwoord).decode('utf-8')
     
     def check_password(self, wachtwoord):
-        return bcrypt.check_password_hash(self.wachtwoord_hash, wachtwoord)
+        return bcrypt.check_password_hash(self.wachtwoord, wachtwoord)
 
     @login_manager.user_loader
-    def load_user(id):
-        return Gebruiker.query.get(id)
+    def load_user(user_id):
+        return Gebruiker.query.get(user_id)
 
     def __repr__(self):
         return f"Email: {self.email} / Gebruikersnaam: {self.gebruikersnaam} / Wachtwoord: {self.wachtwoord}"

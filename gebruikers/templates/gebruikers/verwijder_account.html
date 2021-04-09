@@ -3,9 +3,11 @@
     <div class="bg-light p-4 col-5 rounded my-form bg-light">
         <div class="row text-center"><h1>Pas op!</h1></div>
         <div class="row justify-content-center pb-2">Weet u zeker dat u uw account wilt verwijderen?</div>
-        <div class="row justify-content-evenly">
+        <div class="row justify-content-evenly">     
             <a href="{{ url_for('films_blueprint.index') }}" class="btn btn-primary col-4">Ga terug</a>
-            <button type="button" class="btn btn-danger col-4">Verwijder account</button>
+            <form class="remove-bottom-margin col-4" method="POST">
+                {{ form.verwijder_gebruiker(class_="btn btn-danger w-100") }}
+            </form>  
         </div>
     </div>
 {% endblock %}

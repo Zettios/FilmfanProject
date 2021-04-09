@@ -4,6 +4,10 @@
         <form class="remove-bottom-margin" method="POST">
             {{ form.csrf_token }}
             {{ form.hidden_tag() }}
+
+            {% for err in form.email.errors %}<li>{{ err }}</li>{% endfor %}
+            {% if form.email.errors|length > 0 %}<hr>{% endif %}
+
             <div class="form-group">
                 {{ form.email.label }}
                 {{ form.email(class_="form-control") }}

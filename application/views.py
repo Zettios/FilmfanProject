@@ -1,5 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
+from flask_login import login_required, logout_user, current_user
 from . import app
+from application import db, login_manager
 
 @app.route('/')
 def index():

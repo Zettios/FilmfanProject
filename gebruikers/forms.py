@@ -27,3 +27,6 @@ class RegistreerForm(FlaskForm):
     def check_username(self, field):
         if Gebruiker.query.filter_by(gebruikersnaam=field.data).first():
             raise ValidationError('Deze gebruikersnaam is al vergeven, probeer een ander naam!')
+
+class VerwijderForm(FlaskForm):
+    verwijder_gebruiker = SubmitField("Verwijder")
