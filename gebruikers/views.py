@@ -8,7 +8,7 @@ from . import gebruikers_blueprint
 @gebruikers_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     print("Route - gebruiker: login")
-
+    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         user = Gebruiker.query.filter_by(email=form.email.data).first()
@@ -17,16 +17,21 @@ def login():
             return render_template('gebruikers/login.html', form=form)
         login_user(user)
         url = request.args.get('next')
+        print("aaaaaaaaaaaaaaaaaa", url)
         if not url or url[0] != '/':
             url = url_for('films_blueprint.index')
         return redirect(url)
 
     return render_template('gebruikers/login.html', form=form)
 
-@gebruikers_blueprint.route('/logout')
-@login_required
+@gebruikers_blueprint.route('/logout', methods=['GET', 'POST'])
 def logout():
+    print("Route - gebruiker: logout")
+
+    print(request.method)
+
     logout_user()
+    print(current_user.is_authenticated)
     return redirect(url_for('films_blueprint.index'), 308)
 
 @gebruikers_blueprint.route('/registreer_gebruiker', methods=['GET', 'POST'])

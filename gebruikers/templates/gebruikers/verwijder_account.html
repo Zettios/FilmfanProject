@@ -6,6 +6,8 @@
         <div class="row justify-content-evenly">     
             <a href="{{ url_for('films_blueprint.index') }}" class="btn btn-primary col-4">Ga terug</a>
             <form class="remove-bottom-margin col-4" method="POST">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
                 {{ form.verwijder_gebruiker(class_="btn btn-danger w-100") }}
             </form>  
         </div>
