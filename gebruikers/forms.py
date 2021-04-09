@@ -11,6 +11,10 @@ class LoginForm(FlaskForm):
     wachtwoord = PasswordField('Wachtwoord', validators=[DataRequired()], render_kw={"placeholder": "Wachtwoord"})
     login = SubmitField('Login')
 
+class LogoutForm(FlaskForm):
+    ga_terug = SubmitField("Ga terug")
+    logout = SubmitField('Logout')
+
 class RegistreerForm(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email("Deze e-mail is niet geldig.")], render_kw={"placeholder": "E-mail"})
     gebruikersnaam = StringField('Gebruikersnaam', validators=[DataRequired()], render_kw={"placeholder": "Gebruikersnaam"})

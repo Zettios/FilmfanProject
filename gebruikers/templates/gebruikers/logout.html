@@ -1,0 +1,15 @@
+{% extends "application/base.html" %}
+{% block content %}
+    <div class="bg-light p-4 col-5 rounded my-form bg-light">
+        <div class="row text-center"><h1>Pas op!</h1></div>
+        <div class="row justify-content-center pb-2">Weet u zeker dat u wilt uitloggen?</div>
+        <div class="row justify-content-evenly">     
+            <form class="remove-bottom-margin row justify-content-evenly" method="POST">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+                {{ form.ga_terug(class_="btn btn-primary col-4") }}
+                {{ form.logout(class_="btn btn-danger col-4") }}
+            </form>  
+        </div>
+    </div>
+{% endblock %}

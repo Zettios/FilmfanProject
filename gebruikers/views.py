@@ -28,11 +28,12 @@ def login():
 def logout():
     print("Route - gebruiker: logout")
 
-    print(request.method)
-
-    logout_user()
-    print(current_user.is_authenticated)
-    return redirect(url_for('films_blueprint.index'), 308)
+    form = LogoutForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        if form.logout.data:
+            logout_user()
+            return redirect(url_for('films_blueprint.index'), 308)
+    return render_template('gebruikers/logout.html', form=form)
 
 @gebruikers_blueprint.route('/registreer_gebruiker', methods=['GET', 'POST'])
 def registreer_gebruiker():
