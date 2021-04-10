@@ -58,7 +58,7 @@ def film():
                                                 rollen = rollen.all(), acteurs = acteurs, comments = comments,
                                                 comment_form = commentform)
                                 
-@films_blueprint.route('/edit/', methods=['GET', 'POST'])
+@films_blueprint.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
 
@@ -79,7 +79,7 @@ def edit():
             db.session.add(current_film)
             db.session.commit()
 
-            redirect(url_for('films_blueprint.edit', id=film_id))
+            return redirect(url_for('films_blueprint.edit', id=film_id))
 
     alle_regisseurs = Regisseur.query.all()
     regisseurs = []
@@ -102,3 +102,20 @@ def edit():
 
     return render_template('films/edit.html',   editform=editform, current_film=current_film, 
                                                 rollen = rollen.all(), acteurs = acteurs)
+
+@films_blueprint.route('/acteur_toevoegen', methods=['GET', 'POST'])
+@login_required
+def acteur_toevoegen():
+    acteurtoevoegenform = ActeurToevoegenForm()
+
+    film_id = request.args.get('id')
+
+    if request.method == 'POST' and acteurtoevoegenform.validate_on_submit():
+        print("post") 
+        acteur = Acteur(acteurtoevoegenform.voornaam.data, acteurtoevoegenform.achternaam.data)
+        db.session.add(acteur)
+        db.session.commit()
+
+        return redirect(url_for('films_blueprint.edit', id=film_id))
+
+    return render_template('films/acteur_toevoegen.html', form=acteurtoevoegenform, id=film_id)

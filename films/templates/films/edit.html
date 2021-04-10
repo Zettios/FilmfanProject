@@ -26,14 +26,12 @@
                     </div>
                 {% endfor %}
                 <hr>
-                <form class="remove-bottom-margin ms-0" method="POST">
-                    {{ editform.csrf_token }}
-                    {{ editform.hidden_tag() }}
-                    {{ editform.acteur_toevoegen(class_="btn btn-primary col-4 mb-2") }} {{ editform.rol_toevoegen(class_="btn btn-primary col-4 mb-2") }}
-                    <br>
-                    {{ editform.acteur_verwijderen(class_="btn btn-danger col-4 mb-2") }} {{ editform.rol_verwijderen(class_="btn btn-danger col-4 mb-2") }}
-                    <br>
-                </form>
+                <div class="justify-content-evenly">
+                    <a href="{{ url_for('films_blueprint.acteur_toevoegen', id=current_film.id) }}" class="btn btn-primary col-5">Acteur toevoegen</a>
+                    <a href="{{ url_for('films_blueprint.acteur_toevoegen', id=current_film.id) }}" class="btn btn-danger col-5">Acteur verwijderen</a> <br>
+                    <a href="{{ url_for('films_blueprint.acteur_toevoegen', id=current_film.id) }}" class="btn btn-primary mt-2 col-5">Rol toevoegen</a>
+                    <a href="{{ url_for('films_blueprint.acteur_toevoegen', id=current_film.id) }}" class="btn btn-danger mt-2 col-5">Rol verwijderen</a>
+                </div>
             </div>
         </div>
     </div>
