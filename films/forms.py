@@ -23,6 +23,6 @@ class ActeurToevoegenForm(FlaskForm):
     toevoegen = SubmitField("Toevoegen")
 
 class RolToevoegenForm(FlaskForm):
-    personage = StringField('Voornaam', validators=[DataRequired()])
+    personage = StringField('Personage', validators=[DataRequired()])
     acteurs = SelectField("Acteurs", coerce=int, validate_choice=False)
     toevoegen = SubmitField("Toevoegen")

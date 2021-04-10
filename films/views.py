@@ -119,3 +119,28 @@ def acteur_toevoegen():
         return redirect(url_for('films_blueprint.edit', id=film_id))
 
     return render_template('films/acteur_toevoegen.html', form=acteurtoevoegenform, id=film_id)
+
+@films_blueprint.route('/rol_toevoegen', methods=['GET', 'POST'])
+@login_required
+def rol_toevoegen():
+    roltoevoegenform = RolToevoegenForm()
+
+    film_id = request.args.get('id')
+    acteurs = Acteur.query.all()
+    acteurs_arr = []
+
+    for i in range(0, len(acteurs)):
+        acteurs_arr.append((str(i), str(acteurs[i].voornaam + " " + acteurs[i].achternaam)))
+    print(acteurs_arr)
+
+    roltoevoegenform.acteurs.choices = acteurs_arr
+
+    if request.method == 'POST' and roltoevoegenform.validate_on_submit():
+        print("post") 
+        rol = Rol(roltoevoegenform.acteurs.data + 1, film_id, roltoevoegenform.personage.data)
+        db.session.add(rol)
+        db.session.commit()
+
+        return redirect(url_for('films_blueprint.edit', id=film_id))
+
+    return render_template('films/rol_toevoegen.html', form=roltoevoegenform, id=film_id)
