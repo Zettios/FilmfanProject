@@ -8,8 +8,6 @@ from . import films_blueprint
 
 @films_blueprint.route('/', methods=['GET', 'POST'])
 def index():
-    print("Route - films: index")
-
     films = Film.query.all()
     regisseurs = Regisseur.query.all()
     print(*films, sep='\n')
@@ -17,8 +15,6 @@ def index():
 
 @films_blueprint.route('/film', methods=['GET', 'POST'])
 def film():
-    print("Route - films: film")
-
     commentform = CommentForm()
 
     # -- START alle data ophalen --
@@ -61,7 +57,6 @@ def film():
 @films_blueprint.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
-
     editform = EditForm()
 
     film_id = request.args.get('id')
@@ -111,7 +106,6 @@ def acteur_toevoegen():
     film_id = request.args.get('id')
 
     if request.method == 'POST' and acteurtoevoegenform.validate_on_submit():
-        print("post") 
         acteur = Acteur(acteurtoevoegenform.voornaam.data, acteurtoevoegenform.achternaam.data)
         db.session.add(acteur)
         db.session.commit()
@@ -131,12 +125,10 @@ def rol_toevoegen():
 
     for i in range(0, len(acteurs)):
         acteurs_arr.append((str(i), str(acteurs[i].voornaam + " " + acteurs[i].achternaam)))
-    print(acteurs_arr)
 
     roltoevoegenform.acteurs.choices = acteurs_arr
 
     if request.method == 'POST' and roltoevoegenform.validate_on_submit():
-        print("post") 
         rol = Rol(roltoevoegenform.acteurs.data + 1, film_id, roltoevoegenform.personage.data)
         db.session.add(rol)
         db.session.commit()
