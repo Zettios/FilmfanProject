@@ -16,7 +16,7 @@ class Acteur(db.Model):
         self.achternaam = achternaam
 
     def __repr__(self):
-        return f"Voornaam: {self.voornaam}. Achternaam {self.achternaam}."
+        return f"Voornaam: {self.voornaam}. Achternaam: {self.achternaam}."
 
 class Regisseur(db.Model):
 
