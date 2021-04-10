@@ -20,7 +20,6 @@ def film():
     print("Route - films: film")
 
     commentform = CommentForm()
-    editform = EditForm()
 
     # -- START alle data ophalen --
     film_id = request.args.get('film_id')
@@ -57,4 +56,49 @@ def film():
             flash("Het bericht moet tussen 5 en 200 woorden zijn.")
     return render_template('films/film.html',   film_info = current_film, regisseur = regisseur, 
                                                 rollen = rollen.all(), acteurs = acteurs, comments = comments,
-                                                comment_form = commentform, edit_form=editform)
+                                                comment_form = commentform)
+                                
+@films_blueprint.route('/edit/', methods=['GET', 'POST'])
+@login_required
+def edit():
+
+    editform = EditForm()
+
+    film_id = request.args.get('id')
+    current_film = Film.query.get(film_id)
+
+    if request.method == 'POST' and editform.validate_on_submit():
+        if editform.verander.data:
+            print('ok')
+            current_film.trailer = editform.trailer_link.data
+            current_film.titel = editform.titel.data
+            current_film.jaar = editform.jaar.data
+            current_film.regisseur_id = editform.regisseurs.data + 1
+            print(editform.regisseurs.data)
+
+            db.session.add(current_film)
+            db.session.commit()
+
+            redirect(url_for('films_blueprint.edit', id=film_id))
+
+    alle_regisseurs = Regisseur.query.all()
+    regisseurs = []
+
+    for i in range(0, len(alle_regisseurs)):
+        regisseurs.append((str(i), str(alle_regisseurs[i])))
+
+    editform.regisseurs.default = current_film.regisseur_id - 1
+    editform.process()
+
+    editform.trailer_link.data = current_film.trailer
+    editform.titel.data = current_film.titel
+    editform.jaar.data = current_film.jaar
+    editform.regisseurs.choices = regisseurs
+
+    rollen = Rol.query.filter_by(id_film=current_film.id)
+    acteurs = []
+    for i in range(0, len(rollen.all())):
+        acteurs.append(Acteur.query.get(rollen[i].id_acteur))
+
+    return render_template('films/edit.html',   editform=editform, current_film=current_film, 
+                                                rollen = rollen.all(), acteurs = acteurs)

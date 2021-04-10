@@ -1,0 +1,40 @@
+{% extends  "application/base.html" %}
+{% block content %}
+    <div class="col-8 pt-4 pb-4">
+        <div class="row bg-light mt-2 text-center pt-2 pb-2">
+            <div class="row bg-light ms-0">
+                <div class="col-12 justify-content-start">
+                    <form class="remove-bottom-margin ms-0" method="POST">
+                        {{ editform.csrf_token }}
+                        {{ editform.hidden_tag() }}
+                        {{ editform.trailer_link.label(class_="col-2") }} {{ editform.trailer_link(class_="col-6") }} <br>
+                        {{ editform.titel.label(class_="col-2") }} {{ editform.titel(class_="col-6") }}
+                        <br>
+                        {{ editform.jaar.label(class_="col-2") }} {{ editform.jaar(class_="col-6") }}
+                        <br>
+                        {{ editform.regisseurs.label(class_="col-2") }} {{ editform.regisseurs(class_="col-6") }}
+                        <br>
+                        {{ editform.verander(class_="btn btn-primary col-6 mt-2") }}
+                    </form>
+                    <hr>
+                </div>
+            </div>
+            <div class="row bg-light ms-0">
+                {% for i in range(0, rollen|length) %} 
+                    <div class="col-4 mb-2">
+                        {{ acteurs[i].voornaam }} {{ acteurs[i].achternaam }}<br><small>{{ rollen[i].naam_personage }}</small>
+                    </div>
+                {% endfor %}
+                <hr>
+                <form class="remove-bottom-margin ms-0" method="POST">
+                    {{ editform.csrf_token }}
+                    {{ editform.hidden_tag() }}
+                    {{ editform.acteur_toevoegen(class_="btn btn-primary col-4 mb-2") }} {{ editform.rol_toevoegen(class_="btn btn-primary col-4 mb-2") }}
+                    <br>
+                    {{ editform.acteur_verwijderen(class_="btn btn-danger col-4 mb-2") }} {{ editform.rol_verwijderen(class_="btn btn-danger col-4 mb-2") }}
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
