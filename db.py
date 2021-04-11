@@ -68,7 +68,7 @@ db.session.add_all([rol1, rol2, rol3, rol4,
                     rol9, rol10, rol11, rol12, rol13])
 db.session.commit()
 
-user0 = Gebruiker("fanfilmadmin@gmail.com", "Admin", "Admin01")
+user0 = Gebruiker("admin@gmail.com", "Admin", "admin")
 user1 = Gebruiker("bobbybobinson@gmail.com", "Bobby", "WW123")
 user2 = Gebruiker("boberito@gmail.com", "Bob", "WW1234*")
 

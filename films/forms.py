@@ -7,7 +7,7 @@ class EditForm(FlaskForm):
     trailer_link = StringField('Trailer', validators=[DataRequired()])
     titel = StringField('Titel', validators=[DataRequired()])
     jaar = StringField('Jaar', validators=[DataRequired()])
-    regisseurs = SelectField("Regisseurs", coerce=int, validate_choice=False)
+    regisseurs = SelectField("Regisseurs", validate_choice=False)
     verander = SubmitField("Verander")
    
 class CommentForm(FlaskForm):
@@ -22,7 +22,20 @@ class ActeurToevoegenForm(FlaskForm):
     achternaam = StringField('Achternaam', validators=[DataRequired()])
     toevoegen = SubmitField("Toevoegen")
 
+class ActeurVerwijderForm(FlaskForm):
+    acteurs = SelectField("Acteurs", validate_choice=False)
+    verwijder = SubmitField("Verwijder")
+
 class RolToevoegenForm(FlaskForm):
     personage = StringField('Personage', validators=[DataRequired()])
-    acteurs = SelectField("Acteurs", coerce=int, validate_choice=False)
+    acteurs = SelectField("Acteurs", validate_choice=False)
     toevoegen = SubmitField("Toevoegen")
+
+class RolVeranderenForm(FlaskForm):
+    personage = StringField('Personage', validators=[DataRequired()])
+    acteurs = SelectField("Acteurs", validate_choice=False)
+    verander = SubmitField("Pas aan")
+
+class RolVerwijderForm(FlaskForm):
+    personage = SelectField('Personage', validators=[DataRequired()])
+    verwijder = SubmitField("Verwijder")

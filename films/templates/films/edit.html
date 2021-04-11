@@ -22,15 +22,20 @@
             <div class="row bg-light ms-0">
                 {% for i in range(0, rollen|length) %} 
                     <div class="col-4 mb-2">
-                        {{ acteurs[i].voornaam }} {{ acteurs[i].achternaam }}<br><small>{{ rollen[i].naam_personage }}</small>
+                        {{ acteurs[i].voornaam }} {{ acteurs[i].achternaam }}<br><small>{{ rollen[i].naam_personage }}</small><br>
+                        <a href="{{ url_for('films_blueprint.rol_veranderen', acteur_id=acteurs[i].id, rol_id=rollen[i].id, id=current_film.id) }}" class="btn btn-primary mt-2 col-6">Pas aan</a>
                     </div>
                 {% endfor %}
                 <hr>
                 <div class="justify-content-evenly">
                     <a href="{{ url_for('films_blueprint.acteur_toevoegen', id=current_film.id) }}" class="btn btn-primary col-5">Acteur toevoegen</a>
-                    <a href="{{ url_for('films_blueprint.acteur_toevoegen', id=current_film.id) }}" class="btn btn-danger col-5">Acteur verwijderen</a> <br>
+                    <a href="{{ url_for('films_blueprint.acteur_verwijderen', id=current_film.id) }}" class="btn btn-danger col-5">Acteur verwijderen</a> <br>
                     <a href="{{ url_for('films_blueprint.rol_toevoegen', id=current_film.id) }}" class="btn btn-primary mt-2 col-5">Rol toevoegen</a>
-                    <a href="{{ url_for('films_blueprint.acteur_toevoegen', id=current_film.id) }}" class="btn btn-danger mt-2 col-5">Rol verwijderen</a>
+                    <a href="{{ url_for('films_blueprint.rol_verwijderen', id=current_film.id) }}" class="btn btn-danger mt-2 col-5">Rol verwijderen</a>
+                </div>
+                <hr>
+                <div class="justify-content-evenly">
+                    <a href="{{ url_for('films_blueprint.film_verwijderen', id=current_film.id) }}" class="btn btn-danger mt-2 col-5">Film verwijderen</a>
                 </div>
             </div>
         </div>

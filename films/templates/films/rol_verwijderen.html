@@ -1,0 +1,12 @@
+{% extends  "application/base.html" %}
+{% block content %}
+<div class="bg-light p-4 col-4 rounded mt-5">
+    <form class="remove-bottom-margin row justify-content-evenly" method="POST">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        {{ form.personage.label(class_="col-3") }} {{ form.personage(class_="col-8") }} <br>
+        <a href="{{ url_for('films_blueprint.edit', id=id) }}" class="btn btn-primary mt-3 col-5">Ga terug</a>
+        {{ form.verwijder(class_="btn btn-danger mt-3 col-5") }}
+    </form>
+</div>
+{% endblock %}
