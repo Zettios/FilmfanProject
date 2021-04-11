@@ -1,5 +1,4 @@
 from application import db
-from gebruikers.models import *
 
 class Acteur(db.Model):
 

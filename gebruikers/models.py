@@ -1,7 +1,6 @@
 from application import db, login_manager, bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from films.models import *
 
 class Gebruiker(db.Model, UserMixin):
 

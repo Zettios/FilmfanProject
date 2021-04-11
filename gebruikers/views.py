@@ -4,6 +4,7 @@ from application import db, login_manager, bcrypt
 from .forms import *
 from .models import *
 from . import gebruikers_blueprint
+from films.models import Comment
 
 @gebruikers_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -62,8 +63,9 @@ def account():
 @gebruikers_blueprint.route('/verwijder_account', methods=['GET', 'POST'])
 def verwijder_account():
     form = VerwijderForm()
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         gebruiker = Gebruiker.load_user(current_user.id)
+        comments = Comment.query.filter_by(id_gebruiker=current_user.id).delete()
         db.session.delete(gebruiker)
         db.session.commit()
         logout_user

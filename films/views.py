@@ -3,8 +3,8 @@ from flask_login import login_required, login_user, logout_user, current_user
 from application import db, login_manager
 from .forms import *
 from .models import *
-from gebruikers.models import *
 from . import films_blueprint
+from gebruikers.models import *
 
 def link_corrector(link):
     new_link = link
