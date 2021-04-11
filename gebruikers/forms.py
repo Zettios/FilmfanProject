@@ -11,6 +11,13 @@ class LoginForm(FlaskForm):
     wachtwoord = PasswordField('Wachtwoord', validators=[DataRequired()], render_kw={"placeholder": "Wachtwoord"})
     login = SubmitField('Login')
 
+class VeranderWachtwoordForm(FlaskForm):
+    oude_wachtwoord = PasswordField('Oude wachtwoord', validators=[DataRequired()], render_kw={"placeholder": "Oude wachtwoord"})
+    nieuwe_wachtwoord = PasswordField('Nieuwe wachtwoord', validators=[DataRequired()], render_kw={"placeholder": "Nieuwe wachtwoord"})
+    nieuwe_wachtwoord_check = PasswordField('Nieuwe wachtwoord check', validators=[DataRequired(), EqualTo('nieuwe_wachtwoord', message='Wachtwoorden moeten gelijk zijn.')], 
+                                                render_kw={"placeholder": "Nieuwe wachtwoord check"})
+    verander_wachtwoord = SubmitField('Verander wachtwoord')
+
 class LogoutForm(FlaskForm):
     ga_terug = SubmitField("Ga terug")
     logout = SubmitField('Logout')

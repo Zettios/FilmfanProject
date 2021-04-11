@@ -22,6 +22,23 @@ def login():
 
     return render_template('gebruikers/login.html', form=form)
 
+@gebruikers_blueprint.route('/verander_wachtwoord', methods=['GET', 'POST'])
+def verander_wachtwoord():
+    form = VeranderWachtwoordForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        user = Gebruiker.query.filter_by(id=current_user.id).first()
+        if user.check_password(form.oude_wachtwoord.data) == False:
+            form.oude_wachtwoord.errors.append("Het oude wachtwoord is niet hetzelfde.")
+            return render_template('gebruikers/verander_wachtwoord.html', form=form)
+
+        if form.nieuwe_wachtwoord.data == form.nieuwe_wachtwoord_check.data:
+            user.wachtwoord = bcrypt.generate_password_hash(form.nieuwe_wachtwoord.data)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('gebruikers_blueprint.account'))
+
+    return render_template('gebruikers/verander_wachtwoord.html', form=form)
+
 @gebruikers_blueprint.route('/logout', methods=['GET', 'POST'])
 def logout():
     form = LogoutForm()

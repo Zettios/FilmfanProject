@@ -6,7 +6,7 @@
         <div class="row account-row">E-mail: {{ current_user.email }}</div>
         <div class="row account-row">Gebruikersnaam: {{ current_user.gebruikersnaam }}</div>
         <div class="row account-row">Wachtwoord:  {{ fake_password }}</div>
-        <button type="button" class="btn btn-secondary">Verander wachtwoord</button>
+        <a href="{{ url_for('gebruikers_blueprint.verander_wachtwoord') }}" class="btn btn-secondary">Verander wachtwoord</a>
         <hr>
         <a href="{{ url_for('gebruikers_blueprint.verwijder_account') }}" class="btn btn-danger">Verwijder account</a>
     </div>
