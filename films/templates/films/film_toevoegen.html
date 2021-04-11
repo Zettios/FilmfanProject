@@ -4,6 +4,19 @@
         <div class="row bg-light mt-2 text-center pt-2 pb-2">
             <div class="row bg-light ms-0">
                 <div class="col-12 justify-content-start">
+                    <div>
+                        <b><h1>Film toevoegen</h1></b>
+                        <hr>
+                    </div>
+                    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endwith %}
                     <form class="remove-bottom-margin ms-0" method="POST">
                         {{ form.csrf_token }}
                         {{ form.hidden_tag() }}

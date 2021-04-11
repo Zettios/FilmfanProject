@@ -1,19 +1,19 @@
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, SubmitField
+from wtforms import StringField, TextAreaField, SelectField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, Optional, Length
 
 class FilmToevoegenForm(FlaskForm):
     trailer_link = StringField('Trailer', validators=[DataRequired()])
     titel = StringField('Titel', validators=[DataRequired()])
-    jaar = StringField('Jaar', validators=[DataRequired()])
+    jaar = IntegerField('Jaar', validators=[DataRequired()])
     regisseurs = SelectField("Regisseurs", validate_choice=False)
     voegtoe = SubmitField("Voegtoe")
 
 class EditForm(FlaskForm):
     trailer_link = StringField('Trailer', validators=[DataRequired()])
     titel = StringField('Titel', validators=[DataRequired()])
-    jaar = StringField('Jaar', validators=[DataRequired()])
+    jaar = IntegerField('Jaar', validators=[DataRequired()])
     regisseurs = SelectField("Regisseurs", validate_choice=False)
     verander = SubmitField("Verander")
    

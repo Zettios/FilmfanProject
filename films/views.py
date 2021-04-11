@@ -10,10 +10,11 @@ def link_corrector(link):
     new_link = link
     prefix1 = "https://youtu.be/"
     prefix2 = "https://www.youtube.com/watch?v="
+    correctprefix = "https://www.youtube.com/embed/"
 
     if prefix1 in new_link: 
         new_link = link.replace(prefix2,'')
-        new_link = "https://www.youtube.com/embed/" + new_link
+        new_link = correctprefix + new_link
     elif prefix2 in new_link: 
         new_link = link.replace(prefix2,'')
 
@@ -24,11 +25,7 @@ def link_corrector(link):
                 break
             counter += 1
 
-        new_link = "https://www.youtube.com/embed/" + new_link
-    else:
-        print('No correct pre-fix')
-
-    print(new_link)
+        new_link = correctprefix + new_link
     return new_link
 
 @films_blueprint.route('/', methods=['GET', 'POST'])
@@ -86,7 +83,10 @@ def edit():
     film_id = request.args.get('id')
     current_film = Film.query.get(film_id)
 
+    print(editform.validate_on_submit())
+
     if request.method == 'POST' and editform.validate_on_submit():
+        print("ok")
         if editform.verander.data:
 
             link = link_corrector(str(editform.trailer_link.data))
@@ -104,7 +104,12 @@ def edit():
             db.session.add(current_film)
             db.session.commit()
 
+            flash("Aanpassingen doorgevoerd", "aanpassing")
+
             return redirect(url_for('films_blueprint.edit', id=film_id))
+    else:
+        if len(editform.jaar.errors) > 0:
+            flash("Jaar: Accepteert alleen cijfers.", "error")
 
     alle_regisseurs = Regisseur.query.all()
     regisseurs = []
@@ -151,12 +156,17 @@ def film_toevoegen():
         voornaam = split[0]
         achternaam = split[1]
 
+        link = link_corrector(str(form.trailer_link.data))
+
         regisseur = Regisseur.query.filter_by(voornaam=voornaam, achternaam=achternaam).first()
-        film = Film(form.titel.data, form.jaar.data, regisseur.id, form.trailer_link.data)
+        film = Film(form.titel.data, form.jaar.data, regisseur.id, link)
         db.session.add(film)
         db.session.commit()
-        print(film.id)
+        flash("Film toegevoegd.", "aanpassing")
         return redirect(url_for('films_blueprint.edit', id=film.id), 308)
+    else:
+        if len(form.jaar.errors) > 0:
+            flash("Jaar: Accepteert alleen cijfers.", "error")
 
     return render_template('films/film_toevoegen.html', form=form)
 
@@ -171,6 +181,7 @@ def film_verwijderen():
         comments = Comment.query.filter_by(id_film=film_id).delete()
         film = Film.query.filter_by(id=film_id).delete()
         db.session.commit()
+        flash("Film verwijderd.", "aanpassing")
         return redirect(url_for('films_blueprint.index'), 308)
 
     return render_template('films/film_verwijderen.html', form=verwijderfilmform, id=film_id)
@@ -186,7 +197,7 @@ def acteur_toevoegen():
         acteur = Acteur(acteurtoevoegenform.voornaam.data, acteurtoevoegenform.achternaam.data)
         db.session.add(acteur)
         db.session.commit()
-
+        flash("Acteur toegevoegd.", "aanpassing")
         return redirect(url_for('films_blueprint.edit', id=film_id))
 
     return render_template('films/acteur_toevoegen.html', form=acteurtoevoegenform, id=film_id)
@@ -207,6 +218,8 @@ def acteur_verwijderen():
         db.session.commit()
         db.session.delete(acteur)
         db.session.commit()
+
+        flash("Acteur verwijderd.", "aanpassing")
 
         return redirect(url_for('films_blueprint.edit', id=film_id))
 
@@ -243,6 +256,8 @@ def rol_toevoegen():
         db.session.add(rol)
         db.session.commit()
 
+        flash("Rol toegevoegd.", "aanpassing")
+
         return redirect(url_for('films_blueprint.edit', id=film_id))
 
     return render_template('films/rol_toevoegen.html', form=roltoevoegenform, id=film_id)
@@ -277,6 +292,9 @@ def rol_veranderen():
         rol.naam_personage = rolveranderform.personage.data
         db.session.add(rol)
         db.session.commit()
+
+        flash("Rol veranderd.", "aanpassing")
+
         return redirect(url_for('films_blueprint.edit', id=film_id))
 
     rolveranderform.acteurs.default = acteur_default
@@ -304,6 +322,7 @@ def rol_verwijderen():
         rol = Rol.query.filter_by(naam_personage=rolverwijderform.personage.data).first()
         db.session.delete(rol)
         db.session.commit()
+        flash("Rol verwijderd.", "aanpassing")
         return redirect(url_for('films_blueprint.edit', id=film_id))
 
     return render_template('films/rol_verwijderen.html', form=rolverwijderform, id=film_id)

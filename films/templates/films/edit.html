@@ -4,6 +4,29 @@
         <div class="row bg-light mt-2 text-center pt-2 pb-2">
             <div class="row bg-light ms-0">
                 <div class="col-12 justify-content-start">
+                    {% with errors = get_flashed_messages(category_filter=["aanpassing"]) %}
+                    {% if errors %}
+                        {%- for msg in errors %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{ msg }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor -%}
+                    {% endif %}
+                    {% endwith %}
+                    <div>
+                        <b><h1>Film aanpassen</h1></b>
+                        <hr>
+                    </div>
+                    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endwith %}
                     <form class="remove-bottom-margin ms-0" method="POST">
                         {{ editform.csrf_token }}
                         {{ editform.hidden_tag() }}
