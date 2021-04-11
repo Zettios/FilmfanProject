@@ -3,6 +3,13 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Optional, Length
 
+class FilmToevoegenForm(FlaskForm):
+    trailer_link = StringField('Trailer', validators=[DataRequired()])
+    titel = StringField('Titel', validators=[DataRequired()])
+    jaar = StringField('Jaar', validators=[DataRequired()])
+    regisseurs = SelectField("Regisseurs", validate_choice=False)
+    voegtoe = SubmitField("Voegtoe")
+
 class EditForm(FlaskForm):
     trailer_link = StringField('Trailer', validators=[DataRequired()])
     titel = StringField('Titel', validators=[DataRequired()])
@@ -16,6 +23,9 @@ class CommentForm(FlaskForm):
     # De message word door gegeven met <form_naam>.errors
     # Bedoeling om dit in een flash bericht te stoppen
     voegtoe = SubmitField('Voegtoe')
+
+class VerwijderFilmForm(FlaskForm):
+    verwijder = SubmitField("Verwijder")
 
 class ActeurToevoegenForm(FlaskForm):
     voornaam = StringField('Voornaam', validators=[DataRequired()])

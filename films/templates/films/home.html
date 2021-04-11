@@ -1,6 +1,9 @@
 {% extends "application/base.html" %}
 {% block content %}
     <div class="col-8 pt-4 pb-4 bg-light">
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('films_blueprint.film_toevoegen') }}" class="btn btn-primary col-12"><b>Film toevoegen</b></a> 
+        {% endif %}
         {% for i in range(0, len) %} 
             {% if i % 2 == 0 %}
                 <div class="film-item">

@@ -6,11 +6,35 @@ from .models import *
 from gebruikers.models import *
 from . import films_blueprint
 
+def link_corrector(link):
+    new_link = link
+    prefix1 = "https://youtu.be/"
+    prefix2 = "https://www.youtube.com/watch?v="
+
+    if prefix1 in new_link: 
+        new_link = link.replace(prefix2,'')
+        new_link = "https://www.youtube.com/embed/" + new_link
+    elif prefix2 in new_link: 
+        new_link = link.replace(prefix2,'')
+
+        counter = 0
+        for i in new_link:
+            if i == '&':   
+                new_link = new_link[0:counter]
+                break
+            counter += 1
+
+        new_link = "https://www.youtube.com/embed/" + new_link
+    else:
+        print('No correct pre-fix')
+
+    print(new_link)
+    return new_link
+
 @films_blueprint.route('/', methods=['GET', 'POST'])
 def index():
     films = Film.query.all()
     regisseurs = Regisseur.query.all()
-    print(*films, sep='\n')
     return render_template('films/home.html', len = len(films), Films = films, Regisseurs = regisseurs)
 
 @films_blueprint.route('/film', methods=['GET', 'POST'])
@@ -64,7 +88,10 @@ def edit():
 
     if request.method == 'POST' and editform.validate_on_submit():
         if editform.verander.data:
-            current_film.trailer = editform.trailer_link.data
+
+            link = link_corrector(str(editform.trailer_link.data))
+
+            current_film.trailer = link
             current_film.titel = editform.titel.data
             current_film.jaar = editform.jaar.data
 
@@ -105,10 +132,48 @@ def edit():
     return render_template('films/edit.html',   editform=editform, current_film=current_film, 
                                                 rollen = rollen.all(), acteurs = acteurs)
 
+@films_blueprint.route('/film_toevoegen', methods=['GET', 'POST'])
+@login_required
+def film_toevoegen():
+    form = FilmToevoegenForm()
+
+    regisseurs = Regisseur.query.all()
+    regisseurs_arr = []
+
+    for i in range(0, len(regisseurs)):
+        regisseurs_arr.append((str(regisseurs[i].voornaam + " " + regisseurs[i].achternaam)))
+
+    form.regisseurs.choices = regisseurs_arr
+
+    if request.method == 'POST' and form.validate_on_submit():
+        print(1)
+        split = form.regisseurs.data.split(" ", 1)
+        voornaam = split[0]
+        achternaam = split[1]
+
+        regisseur = Regisseur.query.filter_by(voornaam=voornaam, achternaam=achternaam).first()
+        film = Film(form.titel.data, form.jaar.data, regisseur.id, form.trailer_link.data)
+        db.session.add(film)
+        db.session.commit()
+        print(film.id)
+        return redirect(url_for('films_blueprint.edit', id=film.id), 308)
+
+    return render_template('films/film_toevoegen.html', form=form)
+
 @films_blueprint.route('/film_verwijderen', methods=['GET', 'POST'])
 @login_required
 def film_verwijderen():
-    return render_template('films/film_verwijderen.html', id=film_id)
+    verwijderfilmform = VerwijderFilmForm()
+    film_id = request.args.get('id')
+
+    if request.method == 'POST' and verwijderfilmform.validate_on_submit():
+        rollen = Rol.query.filter_by(id_film=film_id).delete()
+        comments = Comment.query.filter_by(id_film=film_id).delete()
+        film = Film.query.filter_by(id=film_id).delete()
+        db.session.commit()
+        return redirect(url_for('films_blueprint.index'), 308)
+
+    return render_template('films/film_verwijderen.html', form=verwijderfilmform, id=film_id)
 
 @films_blueprint.route('/acteur_toevoegen', methods=['GET', 'POST'])
 @login_required

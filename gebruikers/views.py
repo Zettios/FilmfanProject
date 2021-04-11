@@ -28,6 +28,8 @@ def logout():
         if form.logout.data:
             logout_user()
             return redirect(url_for('films_blueprint.index'), 308)
+        if form.ga_terug.data:
+            return redirect(url_for('films_blueprint.index'), 308)
     return render_template('gebruikers/logout.html', form=form)
 
 @gebruikers_blueprint.route('/registreer_gebruiker', methods=['GET', 'POST'])
